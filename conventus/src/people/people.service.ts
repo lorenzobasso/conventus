@@ -17,15 +17,19 @@ export class PeopleService {
         email: createPersonDto.email,
         locationId: createPersonDto.locationId,
       },
+      include: { location: true },
     })
   }
 
   findAll() {
-    return this.prisma.person.findMany()
+    return this.prisma.person.findMany({ include: { location: true } })
   }
 
   findOne(id: number) {
-    return this.prisma.person.findUniqueOrThrow({ where: { id } })
+    return this.prisma.person.findUniqueOrThrow({
+      where: { id },
+      include: { location: true },
+    })
   }
 
   update(id: number, updatePersonDto: UpdatePersonDto) {
@@ -37,6 +41,7 @@ export class PeopleService {
         email: updatePersonDto.email,
         locationId: updatePersonDto.locationId,
       },
+      include: { location: true },
     })
   }
 

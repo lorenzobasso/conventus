@@ -5,13 +5,22 @@ import { faker } from '@faker-js/faker'
 const prisma = new PrismaClient()
 
 // Number of fake db entities to create
-const numToCreate = 30
+const numPeople = 30
 
 async function main() {
-  const people = Array.from({ length: numToCreate }).map(() => ({
+  const name = faker.address.city()
+  const timezone = faker.address.timeZone()
+  const location = await prisma.location.upsert({
+    where: { name },
+    update: {},
+    create: { name, timezone },
+  })
+
+  const people = Array.from({ length: numPeople }).map(() => ({
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     email: faker.internet.email(),
+    locationId: location.id,
   }))
 
   for (const person of people) {
@@ -22,7 +31,7 @@ async function main() {
     })
   }
 
-  console.log(`Successfully created ${numToCreate} people`)
+  console.log(`Successfully created ${numPeople} people`)
 }
 
 main()

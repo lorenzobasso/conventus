@@ -2,4 +2,6 @@
 	import '../app.postcss'
 </script>
 
-<slot />
+<main class="py-2 flex flex-col h-full">
+	<slot />
+</main>

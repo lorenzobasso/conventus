@@ -10,6 +10,6 @@ export class Person {
   @ApiProperty()
   email: string
 
-  @ApiProperty()
-  locationId: number
+  @ApiProperty({ required: false })
+  locationId?: number
 }

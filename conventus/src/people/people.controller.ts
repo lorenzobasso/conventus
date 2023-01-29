@@ -15,7 +15,7 @@ import { Person } from './entities/person.entity'
 import { PeopleService } from './people.service'
 
 @Controller('people')
-@ApiTags('people')
+@ApiTags('People')
 export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}
 

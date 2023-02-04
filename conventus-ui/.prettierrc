@@ -7,6 +7,7 @@
 	"semi": false,
 	"plugins": ["prettier-plugin-svelte"],
 	"pluginSearchDirs": ["."],
+	"arrowParens": "avoid",
 	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }],
 	"importOrder": ["^@svelte/(.*)$", "^$\\w", "^[./]"],
 	"importOrderParserPlugins": ["typescript", "decorators-legacy"],

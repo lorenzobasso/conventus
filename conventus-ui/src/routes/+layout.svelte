@@ -19,7 +19,7 @@
 	<header>
 		<Header {brandLink} {appLinks} />
 	</header>
-	<main class="py-2 px-4 flex flex-col h-full">
+	<main class="py-2 px-4 flex flex-col flex-1 overflow-auto">
 		<slot />
 	</main>
 </QueryClientProvider>

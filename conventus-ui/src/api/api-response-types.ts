@@ -9,6 +9,6 @@ export type Person = {
 	firstName: string
 	lastName: string
 	email: string
-	locationId: number
-	location: Location
+	locationId?: number
+	location?: Location
 }

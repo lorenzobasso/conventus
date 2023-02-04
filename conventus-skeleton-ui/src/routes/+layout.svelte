@@ -1,20 +1,25 @@
-<script>
-	import '@skeletonlabs/skeleton/themes/theme-skeleton.css'
+<script lang="ts">
+	import type { NavLinkType } from '$atoms/nav-link'
+	import AppHeader from '$molecules/AppHeader.svelte'
+
+	import { AppBar, AppShell } from '@skeletonlabs/skeleton'
 	import '@skeletonlabs/skeleton/styles/all.css'
+	import '@skeletonlabs/skeleton/themes/theme-skeleton.css'
+
 	import '../app.postcss'
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton'
+
+	const links: NavLinkType[] = [
+		{ href: '/', label: 'Home' },
+		{ href: '/people', label: 'People' },
+		{ href: '/groups', label: 'Groups' },
+	]
 </script>
 
 <AppShell slotSidebarLeft="bg-surface-500/5 w-56 p-4">
 	<svelte:fragment slot="header">
-		<AppBar>
-			<svelte:fragment slot="lead">
-				<strong class="text-xl">Conventus</strong>
-			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<div>here be links</div>
-			</svelte:fragment>
-		</AppBar>
+		<AppHeader {links} />
 	</svelte:fragment>
-	<slot />
+	<div class="p-4">
+		<slot />
+	</div>
 </AppShell>

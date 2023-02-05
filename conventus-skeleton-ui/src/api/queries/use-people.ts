@@ -1,6 +1,8 @@
 import API from '$api/api'
 import type { Person } from '$api/api-response-types'
+import { errorToastSettings } from '$atoms/alert-toast'
 
+import { toastStore } from '@skeletonlabs/skeleton'
 import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query'
 
 export const useGetPeople = () =>
@@ -11,8 +13,15 @@ export const useCreatePerson = () => {
 
 	return createMutation({
 		mutationFn: API.people.create,
-		onSuccess: () => {
+		onSuccess: (newPerson: Person) => {
 			queryClient.invalidateQueries({ queryKey: ['people'] })
+			queryClient.setQueryData(['people'], (oldData: unknown) => [
+				...(oldData as Person[]),
+				newPerson,
+			])
+		},
+		onError: () => {
+			toastStore.trigger({ message: 'Failed to create the person', ...errorToastSettings })
 		},
 	})
 }

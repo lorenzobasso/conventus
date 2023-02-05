@@ -14,14 +14,24 @@ model Location {
   id       Int      @id @default(autoincrement())
   name     String   @unique
   timezone String
-  Person   Person[]
+  person   Person[]
 }
 
 model Person {
-  id         Int      @id @default(autoincrement())
-  firstName  String
-  lastName   String
-  email      String   @unique
-  location   Location? @relation(fields: [locationId], references: [id])
-  locationId Int?
+  id           Int            @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  email        String         @unique
+  location     Location?      @relation(fields: [locationId], references: [id])
+  locationId   Int?
+  avaliability Avaliability[]
+}
+
+model Avaliability {
+  id             Int      @id @default(autoincrement())
+  personId       Int
+  person         Person   @relation(fields: [personId], references: [id])
+  availableTimes Int?
+  skipTimes      Int?
+  createdAt      DateTime @default(now())
 }

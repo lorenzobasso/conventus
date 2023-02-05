@@ -4,11 +4,18 @@ export type Location = {
 	timezone: string
 }
 
-export type Person = {
-	id: number
+type PersonCommon = {
 	firstName: string
 	lastName: string
 	email: string
+}
+
+export type NewPerson = PersonCommon & {
+	locationId: number
+}
+
+export type Person = NewPerson & {
+	id: number
 	locationId?: number
 	location?: Location
 }

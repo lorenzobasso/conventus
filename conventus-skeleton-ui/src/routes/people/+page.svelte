@@ -1,14 +1,13 @@
 <script lang="ts">
 	import type { Person } from '$api/api-response-types'
-	import { useGetPeople } from '$api/queries/use-get-people'
-	import NewPersonModal from '$compounds/NewPersonModal.svelte'
+	import { useCreatePerson, useGetPeople } from '$api/queries/use-people'
 	import PersonInfo from '$compounds/PersonInfo.svelte'
-
-	import { type ModalSettings, modalStore } from '@skeletonlabs/skeleton'
+	import { openCreatePersonModal } from '$compounds/new-person-modal'
 
 	import { Plus } from 'svelte-radix'
 
 	const query = useGetPeople()
+	const createPerson = useCreatePerson()
 
 	let filter = ''
 	$: stringMatches = (name: string) => name.toLocaleLowerCase().includes(filter)
@@ -16,16 +15,7 @@
 		[person.firstName, person.lastName, person.email].some(stringMatches)
 	$: people = $query.data?.filter(personMatchesSearch) ?? []
 
-	const createNewPerson = () =>
-		modalStore.trigger({
-			type: 'component',
-			title: 'Create a new person',
-			component: {
-				ref: NewPersonModal,
-				props: {},
-			},
-			response: (data: unknown) => console.log(data),
-		} as ModalSettings)
+	$: handleCreatePerson = () => openCreatePersonModal($createPerson.mutate)
 </script>
 
 {#if $query.isSuccess}
@@ -36,7 +26,7 @@
 				<PersonInfo {person} />
 			{/each}
 		</article>
-		<button class="btn variant-ghost-primary btn-sm flex gap-1" on:click={createNewPerson}>
+		<button class="btn variant-ghost-primary btn-sm flex gap-1" on:click={handleCreatePerson}>
 			<Plus />
 			add new
 		</button>

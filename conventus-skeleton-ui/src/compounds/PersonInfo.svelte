@@ -6,7 +6,7 @@
 	export let person: Person
 </script>
 
-<section class="card p-2 variant-ghost-surface relative">
+<section class="card p-2 variant-ghost-surface relative overflow-auto">
 	<p>{person.firstName}, {person.lastName}</p>
 	<p>{person.email}</p>
 	{#if person.location}

@@ -1,10 +1,14 @@
 <script lang="ts">
 	import type { NewPerson } from '$api/api-response-types'
-	import FormField from '$atoms/FormField.svelte'
+	import { useGetLocations } from '$api/queries/use-locations'
 
-	import { modalStore } from '@skeletonlabs/skeleton'
+	import { ProgressRadial, modalStore } from '@skeletonlabs/skeleton'
+
+	import NewPersonForm from './NewPersonForm.svelte'
 
 	export let parent: any
+
+	const locations = useGetLocations()
 
 	let newPerson: NewPerson = {
 		firstName: '',
@@ -14,31 +18,27 @@
 	}
 
 	const handleSubmit = () => {
-		if ($modalStore[0].response) {
-			$modalStore[0].response(newPerson)
-		}
+		$modalStore[0].response && $modalStore[0].response(newPerson)
 		modalStore.close()
 	}
 </script>
 
-<div class="space-y-8">
-	<form class="flex flex-col gap-2">
-		<div class="flex gap-4">
-			<FormField label="First name">
-				<input type="text" bind:value={newPerson.firstName} />
-			</FormField>
-			<FormField label="Last name">
-				<input type="text" bind:value={newPerson.lastName} />
-			</FormField>
+<div class="flex flex-col gap-8">
+	{#if $locations.isLoading}
+		<div class="w-32 self-center">
+			<ProgressRadial />
 		</div>
-		<FormField label="Email">
-			<input type="text" bind:value={newPerson.email} />
-		</FormField>
-	</form>
+	{:else}
+		<NewPersonForm bind:newPerson locations={$locations.data || []} />
+	{/if}
 	<footer class="modal-footer {parent.regionFooter}">
 		<button class="btn {parent.buttonNeutral}" on:click={parent.onClose}
 			>{parent.buttonTextCancel}</button
 		>
-		<button class="btn {parent.buttonPositive}" on:click={handleSubmit}>Submit Form</button>
+		<button
+			class="btn {parent.buttonPositive}"
+			on:click={handleSubmit}
+			disabled={!$locations.isSuccess}>Submit Form</button
+		>
 	</footer>
 </div>

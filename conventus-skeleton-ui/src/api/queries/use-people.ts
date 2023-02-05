@@ -25,3 +25,17 @@ export const useCreatePerson = () => {
 		},
 	})
 }
+
+export const useDeletePerson = () => {
+	const queryClient = useQueryClient()
+
+	return createMutation({
+		mutationFn: (personId: number) => API.people.delete(personId),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['people'] })
+		},
+		onError: () => {
+			toastStore.trigger({ message: 'Failed to delete the person', ...errorToastSettings })
+		},
+	})
+}

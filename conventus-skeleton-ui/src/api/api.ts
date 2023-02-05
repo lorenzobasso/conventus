@@ -4,6 +4,7 @@ import type { Location, NewPerson, Person } from './api-response-types'
 type PeopleAPI = {
 	getAll: () => Promise<Person[]>
 	create: (newPerson: NewPerson) => Promise<Person>
+	delete: (personId: number) => Promise<Person>
 }
 
 type LocationsAPI = {
@@ -19,6 +20,7 @@ const API: APIType = {
 	people: {
 		getAll: () => getRestAPI().get('/people'),
 		create: newPerson => getRestAPI().put('/people', newPerson),
+		delete: personId => getRestAPI().delete(`/people/${personId}`),
 	},
 	locations: {
 		getAll: () => getRestAPI().get('/locations'),

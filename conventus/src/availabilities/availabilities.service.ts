@@ -1,27 +1,43 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
+import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger'
+
+import { PrismaService } from 'src/prisma/prisma.service'
 
 import { CreateAvailabilityDto } from './dto/create-availability.dto'
-import { UpdateAvailabilityDto } from './dto/update-availability.dto'
+import { Availability } from './entities/availability.entity'
 
 @Injectable()
 export class AvailabilitiesService {
-  create(createAvailabilityDto: CreateAvailabilityDto) {
-    return 'This action adds a new availability'
+  constructor(private readonly prisma: PrismaService) {}
+
+  @ApiCreatedResponse({ type: Availability })
+  upsert(createAvailabilityDto: CreateAvailabilityDto) {
+    const { personId, isRepeat, numTimesAvailable, numTimesSkip } =
+      createAvailabilityDto
+    const data = { personId, isRepeat, numTimesAvailable, numTimesSkip }
+
+    if (isRepeat && numTimesAvailable) {
+      throw new BadRequestException(
+        'Cannot set both isRepeat and numTimesAvailable',
+      )
+    } else if (numTimesAvailable && numTimesSkip) {
+      throw new BadRequestException('Cannot skip when isRepeat=false')
+    }
+
+    return this.prisma.availability.upsert({
+      where: { personId },
+      update: { ...data },
+      create: { ...data },
+    })
   }
 
+  @ApiOkResponse({ type: Availability, isArray: true })
   findAll() {
-    return `This action returns all availabilities`
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} availability`
-  }
-
-  update(id: number, updateAvailabilityDto: UpdateAvailabilityDto) {
-    return `This action updates a #${id} availability`
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} availability`
+    return this.prisma.availability.findMany({
+      where: {
+        OR: [{ isRepeat: true }, { numTimesAvailable: { gt: 0 } }],
+      },
+      include: { person: true },
+    })
   }
 }

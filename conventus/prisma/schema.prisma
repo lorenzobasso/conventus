@@ -18,20 +18,21 @@ model Location {
 }
 
 model Person {
-  id           Int            @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   firstName    String
   lastName     String
-  email        String         @unique
-  location     Location?      @relation(fields: [locationId], references: [id])
+  email        String        @unique
+  location     Location?     @relation(fields: [locationId], references: [id])
   locationId   Int?
-  avaliability Avaliability[]
+  availability Availability?
 }
 
-model Avaliability {
-  id             Int      @id @default(autoincrement())
-  personId       Int
-  person         Person   @relation(fields: [personId], references: [id])
-  availableTimes Int?
-  skipTimes      Int?
-  createdAt      DateTime @default(now())
+model Availability {
+  id                Int      @id @default(autoincrement())
+  personId          Int      @unique
+  person            Person   @relation(fields: [personId], references: [id])
+  isRepeat          Boolean  @default(false)
+  numTimesAvailable Int      @default(0)
+  numTimesSkip      Int      @default(0)
+  createdAt         DateTime @default(now())
 }

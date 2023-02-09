@@ -1,27 +1,28 @@
 import { Injectable } from '@nestjs/common'
 
+import { PrismaService } from 'src/prisma/prisma.service'
+
 import { CreateMessageDto } from './dto/create-message.dto'
-import { UpdateMessageDto } from './dto/update-message.dto'
 
 @Injectable()
 export class MessagesService {
-  create(createMessageDto: CreateMessageDto) {
-    return 'This action adds a new message'
+  constructor(private readonly prisma: PrismaService) {}
+
+  async upsert(createMessageDto: CreateMessageDto) {
+    const oldMessage = await this.prisma.message.findFirst()
+    const data = {
+      title: createMessageDto.title,
+      description: createMessageDto.description,
+    }
+
+    return this.prisma.message.upsert({
+      create: data,
+      update: data,
+      where: { id: oldMessage?.id ?? 1 },
+    })
   }
 
-  findAll() {
-    return `This action returns all messages`
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} message`
-  }
-
-  update(id: number, updateMessageDto: UpdateMessageDto) {
-    return `This action updates a #${id} message`
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} message`
+  find() {
+    return this.prisma.message.findFirst()
   }
 }

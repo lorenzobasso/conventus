@@ -3,6 +3,7 @@ import type {
 	Availability,
 	AvailabilityPatch,
 	Location,
+	Message,
 	NewPerson,
 	Person,
 	PersonAvailability,
@@ -20,9 +21,14 @@ type LocationsAPI = {
 	getAll: () => Promise<Location[]>
 }
 
+type MessageAPI = {
+	get: () => Promise<Message>
+}
+
 type APIType = {
 	people: PeopleAPI
 	locations: LocationsAPI
+	message: MessageAPI
 }
 
 const API: APIType = {
@@ -35,6 +41,9 @@ const API: APIType = {
 	},
 	locations: {
 		getAll: () => getRestAPI().get('/locations'),
+	},
+	message: {
+		get: () => getRestAPI().get('/messages'),
 	},
 }
 

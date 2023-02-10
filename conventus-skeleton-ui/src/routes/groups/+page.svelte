@@ -1,10 +1,12 @@
 <script lang="ts">
 	import type { PersonAvailability } from '$api/api-response-types'
 	import { useGetAvailabilities } from '$api/queries/use-availabilities'
+	import { useGetMessage } from '$api/queries/use-message'
 	import GroupsPicker from '$compounds/GroupsPicker.svelte'
 	import MessagePreparator from '$molecules/MessagePreparator.svelte'
 
 	const getAvailable = useGetAvailabilities()
+	const message = useGetMessage()
 
 	const shouldExclude = (person: PersonAvailability) => person.numTimesSkip > 0
 	const shouldInclude = (person: PersonAvailability) => !shouldExclude(person)
@@ -34,6 +36,10 @@
 		</section>
 		<GroupsPicker {groupSize} {toInclude} bind:groups on:click={() => (frozen = true)} />
 	{:else}
-		<MessagePreparator {groups} />
+		<MessagePreparator
+			{groups}
+			title={$message.data?.title}
+			description={$message.data?.description}
+		/>
 	{/if}
 </div>

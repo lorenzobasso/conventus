@@ -14,13 +14,13 @@
 
 <div>
 	<section class="space-y-2 mb-4 w-10/12 mx-auto">
-		<div class="card variant-ringed-surface flex justify-between p-2">
+		<div class="card variant-ringed-surface flex justify-between p-2 items-start">
 			<h5 class="flex-1">{title}</h5>
-			<button use:clipboard={title}><Copy /></button>
+			<button use:clipboard={title} class="pt-2"><Copy /></button>
 		</div>
-		<div class="card variant-ringed-surface flex justify-between p-2">
-			<p class="flex-1">{description}</p>
-			<button use:clipboard={description}><Copy /></button>
+		<div class="card variant-ringed-surface flex justify-between p-2 items-start">
+			<div class="flex-1 whitespace-pre">{description}</div>
+			<button use:clipboard={description} class="pt-2"><Copy /></button>
 		</div>
 	</section>
 	<div class="grid grid-cols-2 gap-4 w-full">

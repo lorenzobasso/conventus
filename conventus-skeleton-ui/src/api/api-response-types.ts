@@ -36,3 +36,11 @@ export type Person = NewPerson & {
 export type PersonAvailability = Availability & {
 	person: PersonCommon & { id: number; locationId: number }
 }
+
+export type Message = {
+	id: number
+	title: string
+	description: string
+	createdAt: string
+	updatedAt: string
+}

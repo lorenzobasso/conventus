@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { AppBar } from '@skeletonlabs/skeleton'
+
 	import NavLink from '$atoms/NavLink.svelte'
 	import type { NavLinkType } from '$atoms/nav-link'
-
-	import { AppBar } from '@skeletonlabs/skeleton'
 
 	export let appName = 'Coventus'
 	export let links: NavLinkType[]

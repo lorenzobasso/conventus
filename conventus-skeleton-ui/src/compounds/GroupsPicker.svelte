@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { PersonAvailability } from '$api/api-response-types'
-
 	import * as R from 'ramda'
+
+	import type { PersonAvailability } from '$api/api-response-types'
 
 	export let groupSize: number
 	export let toInclude: PersonAvailability[]

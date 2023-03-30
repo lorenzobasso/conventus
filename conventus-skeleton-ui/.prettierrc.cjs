@@ -1,3 +1,3 @@
-const prettierConfig = require('prettier-config')
+const { svelteConfig } = require('prettier-config')
 
-module.exports = prettierConfig
+module.exports = svelteConfig

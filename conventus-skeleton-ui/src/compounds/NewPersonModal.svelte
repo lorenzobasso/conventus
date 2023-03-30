@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { ProgressRadial, modalStore } from '@skeletonlabs/skeleton'
+
 	import type { NewPerson } from '$api/api-response-types'
 	import { useGetLocations } from '$api/queries/use-locations'
-
-	import { ProgressRadial, modalStore } from '@skeletonlabs/skeleton'
 
 	import NewPersonForm from './NewPersonForm.svelte'
 

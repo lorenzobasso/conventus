@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { Plus } from 'svelte-radix'
+
 	import type { Person } from '$api/api-response-types'
 	import { useCreatePerson, useGetPeople } from '$api/queries/use-people'
 	import PersonInfo from '$compounds/PersonInfo.svelte'
 	import { openCreatePersonModal } from '$compounds/new-person-modal'
-
-	import { Plus } from 'svelte-radix'
 
 	const query = useGetPeople()
 	const createPerson = useCreatePerson()

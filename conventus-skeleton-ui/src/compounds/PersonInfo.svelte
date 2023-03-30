@@ -1,11 +1,11 @@
 <script lang="ts">
+	import { Loop, Plus, Reload, TrackNext, Trash } from 'svelte-radix'
+
 	import type { AvailabilityPatch, Person } from '$api/api-response-types'
 	import { useUpdateAvailability } from '$api/queries/use-availabilities'
 	import { useDeletePerson } from '$api/queries/use-people'
 	import CounterButton from '$atoms/CounterButton.svelte'
 	import ToggleIconButton from '$atoms/ToggleIconButton.svelte'
-
-	import { Loop, Plus, Reload, TrackNext, Trash } from 'svelte-radix'
 
 	export let person: Person
 

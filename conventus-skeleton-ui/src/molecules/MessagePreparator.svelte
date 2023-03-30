@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { PersonAvailability } from '$api/api-response-types'
-
 	import { clipboard } from '@skeletonlabs/skeleton'
 
 	import { Copy } from 'svelte-radix'
+
+	import type { PersonAvailability } from '$api/api-response-types'
 
 	import PeopleGroupToggle from './PeopleGroupToggle.svelte'
 

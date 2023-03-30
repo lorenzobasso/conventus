@@ -1,9 +1,9 @@
+import { toastStore } from '@skeletonlabs/skeleton'
+import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query'
+
 import API from '$api/api'
 import type { AvailabilityPatch } from '$api/api-response-types'
 import { errorToastSettings } from '$atoms/alert-toast'
-
-import { toastStore } from '@skeletonlabs/skeleton'
-import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query'
 
 export const useUpdateAvailability = () => {
 	const queryClient = useQueryClient()

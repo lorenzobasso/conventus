@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { NavLinkType } from '$atoms/nav-link'
-	import AppHeader from '$molecules/AppHeader.svelte'
-
 	import { AppShell, Modal, Toast } from '@skeletonlabs/skeleton'
 	import '@skeletonlabs/skeleton/styles/all.css'
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css'
 	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query'
+
+	import type { NavLinkType } from '$atoms/nav-link'
+	import AppHeader from '$molecules/AppHeader.svelte'
 
 	import '../app.postcss'
 

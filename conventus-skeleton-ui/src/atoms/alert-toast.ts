@@ -1,13 +1,13 @@
-import type { ToastSettings } from "@skeletonlabs/skeleton";
+import type { ToastSettings } from '@skeletonlabs/skeleton'
 
-export const toastTimeout = 3000;
+export const toastTimeout = 3000
 
 const commonSettings: Partial<ToastSettings> = {
-  autohide: true,
-  timeout: toastTimeout,
-};
+	autohide: true,
+	timeout: toastTimeout,
+}
 
 export const errorToastSettings: Partial<ToastSettings> = {
-  ...commonSettings,
-  preset: "error",
-};
+	...commonSettings,
+	preset: 'error',
+}

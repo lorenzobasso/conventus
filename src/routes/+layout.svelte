@@ -19,7 +19,11 @@
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
+	import Header from '$lib/header.svelte';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 </script>
 
-<slot />
+<div class="container h-full mx-auto flex flex-col justify-center items-center">
+	<Header />
+	<slot />
+</div>

@@ -44,7 +44,13 @@
   },
   "type": "module",
   "dependencies": {
+    "@floating-ui/dom": "1.5.4",
+    "@tanstack/svelte-query": "^5.17.15",
+    "@trpc/client": "^10.45.0",
+    "@trpc/server": "^10.45.0",
     "highlight.js": "11.9.0",
-    "@floating-ui/dom": "1.5.4"
+    "trpc-svelte-query-adapter": "^2.2.2",
+    "trpc-sveltekit": "^3.5.22",
+    "zod": "^3.22.4"
   }
 }

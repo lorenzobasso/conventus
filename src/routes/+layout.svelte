@@ -20,10 +20,15 @@
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Header from '$lib/header.svelte';
+	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+
+	const queryClient = new QueryClient();
 </script>
 
 <div class="container h-full mx-auto flex flex-col justify-center items-center">
-	<Header />
-	<slot />
+	<QueryClientProvider client={queryClient}>
+		<Header />
+		<slot />
+	</QueryClientProvider>
 </div>

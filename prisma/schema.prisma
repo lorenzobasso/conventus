@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Location {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  displayName String?
+  timeZone    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  people      Person[]
+}
+
+model Person {
+  id          Int          @id @default(autoincrement())
+  name        String
+  surname     String
+  displayName String?
+  email       String       @unique
+  location    Location     @relation(fields: [locationId], references: [id])
+  locationId  Int
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  engagements Engagement[]
+}
+
+model Event {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  engagements Engagement[]
+}
+
+model Engagement {
+  person    Person    @relation(fields: [personId], references: [id])
+  personId  Int
+  event     Event     @relation(fields: [eventId], references: [id])
+  eventId   Int
+  isSkip    Boolean   @default(false)
+  validFor  Int?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@id([personId, eventId])
+}

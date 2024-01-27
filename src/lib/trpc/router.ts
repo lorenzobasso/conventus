@@ -1,14 +1,15 @@
+import prisma from '$lib/prisma';
 import type { Context } from '$lib/trpc/context';
 import { initTRPC } from '@trpc/server';
-import { z } from 'zod';
+// import { z } from 'zod';
 
 export const t = initTRPC.context<Context>().create();
 
 export const router = t.router({
-	greeting: t.procedure.input(z.object({ name: z.string() })).query(async ({ input }) => {
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-		return { greeting: `Hello ${input} tRPC v10 @ ${new Date().toLocaleTimeString()}` };
-	})
+	locations: t.procedure.query(() => prisma.location.findMany({ orderBy: { name: 'asc' } })),
+	people: t.procedure.query(() =>
+		prisma.person.findMany({ include: { location: true }, orderBy: { surname: 'asc' } })
+	)
 });
 
 export type Router = typeof router;

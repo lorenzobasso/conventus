@@ -17,7 +17,7 @@
 	];
 </script>
 
-<header class="my-2">
+<header class="mt-2 mb-4">
 	<nav class="flex gap-3">
 		{#each navMenuEntries as entry}
 			<NavLink {...entry} />
